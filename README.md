@@ -1,2 +1,2 @@
-# fnn_sgd
-Feedforward neural network with stochastic gradient descent
+# NeuralnetworksPython
+Feedforward Neural Network in Python Stochastic gradient descent
