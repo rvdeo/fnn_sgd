@@ -48,14 +48,18 @@ class Network:
 
 		self.minPerf = MinPer
 										#initialize weights ( W1 W2 ) and bias ( b1 b2 ) of the network
-		#np.random.seed() 
+		np.random.seed() 
 		
 		self.W1 = np.random.randn(self.Top[0]  , self.Top[1])  / np.sqrt(self.Top[0] ) 
-		self.B1 = np.random.randn(1  , self.Top[1])  / np.sqrt(self.Top[1] ) # bias first layer
+		#self.B1 = np.random.randn(1, self.Top[1])  / np.sqrt(self.Top[1] ) # bias first layer
+		self.B1 = np.ones( self.Top[1]) # / np.sqrt(self.Top[1] ) # bias first layer
+
 		self.BestB1 = self.B1
 		self.BestW1 = self.W1 
 		self.W2 = np.random.randn(self.Top[1] , self.Top[2]) / np.sqrt(self.Top[1] )
-		self.B2 = np.random.randn(1  , self.Top[2])  / np.sqrt(self.Top[1] ) # bias second layer
+		#self.B2 = np.random.randn(1  , self.Top[2])  / np.sqrt(self.Top[1] ) # bias second layer
+		self.B2 = np.ones( self.Top[2])  # bias second layer
+
 		self.BestB2 = self.B2
 		self.BestW2 = self.W2 
 		self.hidout = np.zeros((1, self.Top[1] )) # output of first hidden layer
@@ -234,12 +238,14 @@ def main():
 	root = Tkinter.Tk()
 	root.withdraw()
 
-	tkMessageBox.showinfo("Input", "Choose Training Data File")
-	tr_file_path = tkFileDialog.askopenfilename()
+	# tkMessageBox.showinfo("Input", "Choose Training Data File")
+	# tr_file_path = tkFileDialog.askopenfilename()
 
-	tkMessageBox.showinfo("Input", "Choose Testing Data File")
-	ts_file_path = tkFileDialog.askopenfilename()
+	# tkMessageBox.showinfo("Input", "Choose Testing Data File")
+	# ts_file_path = tkFileDialog.askopenfilename()
 
+	tr_file_path = "train.txt"
+	ts_file_path = "test.txt"
 	if problem == 1:
 
 		TrDat  = np.loadtxt(tr_file_path) #  Iris classification problem (UCI dataset)
@@ -260,14 +266,14 @@ def main():
 	TestSize = len(TestData)
 
 	Topo = [Input, Hidden, Output] 
-	MaxRun = input("Enter Number of Experimental Runs : ") # number of experimental runs 
+	MaxRun = 5#input("Enter Number of Experimental Runs : ") # number of experimental runs 
 	 
 	MinCriteria = 95 #stop when learn 95 percent
 
 	trainTolerance = 0.2 # [eg 0.15 would be seen as 0] [ 0.81 would be seen as 1]
 	testTolerance = 0.3
 
-	useStocasticGD =  input("Choose 0 for Vanilla BP, or 1 for Stochastic BP : ")# 0 for vanilla BP. 1 for Stocastic BP
+	useStocasticGD =  1#input("Choose 0 for Vanilla BP, or 1 for Stochastic BP : ")# 0 for vanilla BP. 1 for Stocastic BP
 	useVanilla = 1 # 1 for Vanilla Gradient Descent, 0 for Gradient Descent with momentum (either regular momentum or nesterov momen) 
 	useNestmomen = 0 # 0for regular momentum, 1 for Nesterov momentum
 
